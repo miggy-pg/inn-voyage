@@ -13,6 +13,28 @@ const StyledAside = styled.aside`
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
+
+  & ul {
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+
+  @media screen and (max-width: 1200px) {
+    width: 30%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 270px;
+    -moz-transform: translateX(-270px);
+    -webkit-transform: translateX(-270px);
+    -ms-transform: translateX(-270px);
+    -o-transform: translateX(-270px);
+    transform: translateX(-270px);
+
+    & span {
+      margin-bottom: 1em;
+    }
+  }
 `;
 
 export default StyledAside;
