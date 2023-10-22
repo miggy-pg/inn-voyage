@@ -8,7 +8,6 @@ const StyledNavBar = styled.nav`
   bottom: 0;
   top: 0;
   left: 0;
-  overflow-y: scroll;
   z-index: 1001;
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
