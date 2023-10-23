@@ -6,6 +6,7 @@ const StyledMain = styled.main`
   -webkit-transition: 0.5s;
   -o-transition: 0.5s;
   transition: 0.5s;
+  background-color: var(--color-grey-100);
 
   @media screen and (max-width: 1200px) {
     width: 70%;

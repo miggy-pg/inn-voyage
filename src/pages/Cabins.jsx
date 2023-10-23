@@ -2,7 +2,7 @@ import "../styles/global.css";
 
 export default function Cabins() {
   return (
-    <div className="w-full py-5">
+    <div className="w-4/5 py-5 mx-auto">
       <div className="container">
         <h1 className="text-center mb-5 ">Cabins</h1>
         <div className="tab-className text-center wow fadeInUp">
@@ -38,8 +38,8 @@ export default function Cabins() {
           <div className="">
             <div className="p-0">
               <div className="border border-transparent rounded-lg shadow-md hover:shadow-lg transition duration-500 p-4 mb-4">
-                <div className="flex flex-wrap gap-4">
-                  <div className="flex sm:w-full md:w-8/12 items-center">
+                <div className="flex flex-wrap gap-4 ">
+                  <div className="flex sm:col-span-12 md:col-span-8 sm:w-full md:w-8/12 lg:w-full items-center">
                     <div className="text-start ps-4">
                       <h5 className="mb-3">Software Engineer</h5>
                       <span className="truncate me-3">
@@ -55,20 +55,24 @@ export default function Cabins() {
                         $123 - $456
                       </span>
                     </div>
-                  </div>
-                  <div className="sm:w-full md:w-4/12 lg:w-full flex flex-col items-start md:items-end justify-center">
-                    <div className="flex mb-3">
-                      <a className="btn btn-light btn-square me-3" href="">
-                        <i className="far fa-heart text-primary"></i>
-                      </a>
-                      <a className="btn btn-primary" href="">
-                        Apply Now
-                      </a>
+                    <div className="sm:col-span-12 md:col-span-8 lg:col-span-12 sm:w-full md:w-4/12 lg:w-full flex flex-col items-start md:items-end justify-center">
+                      <div className="flex mb-3">
+                        <button
+                          type="button"
+                          className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-3xl px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900"
+                        >
+                          Book Cabin
+                        </button>
+                      </div>
+                      <small className="truncate">
+                        <i className="far fa-calendar-alt text-primary me-2"></i>
+                        Capacity: 4
+                      </small>
+                      <small className="truncate">
+                        <i className="far fa-calendar-alt text-primary me-2"></i>
+                        Bed: Queen
+                      </small>
                     </div>
-                    <small className="truncate">
-                      <i className="far fa-calendar-alt text-primary me-2"></i>
-                      Date Line: 01 Jan, 2045
-                    </small>
                   </div>
                 </div>
               </div>
