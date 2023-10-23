@@ -1,6 +1,18 @@
+import { useQuery } from "@tanstack/react-query";
 import "../styles/global.css";
+import getCabins from "../services/apiCabins";
 
 export default function Cabins() {
+  // queryFn should return a promise
+  const {
+    isLoading,
+    data: cabins,
+    error,
+  } = useQuery({
+    queryKey: ["cabins"],
+    queryFn: getCabins,
+  });
+  if (isLoading) return <div>Loading...</div>;
   return (
     <div className="w-4/5 py-5 mx-auto">
       <div className="container">
@@ -83,5 +95,3 @@ export default function Cabins() {
     </div>
   );
 }
-
-// --bs-gutter-x: 1.5rem;--bs-gutter-y: 0;display:flex;flex-wrap:wrap;margin-top:calc(var(--bs-gutter-y) * -1);margin-right:calc(var(--bs-gutter-x) / -2);margin-left:calc(var(--bs-gutter-x) / -2)
