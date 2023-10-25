@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import CabinsPage from "./pages/CabinsPage";
 import AppLayout from "./components/AppLayout";
 import { Toaster } from "react-hot-toast";
+import BookPage from "./pages/BookPage";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -25,6 +26,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
+            <Route path="book" element={<BookPage />} />
             <Route path="cabins" element={<CabinsPage />} />
           </Route>
         </Routes>
