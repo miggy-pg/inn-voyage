@@ -23,10 +23,10 @@ const sizes = {
 const variations = {
   primary: css`
     color: var(--color-brand-50);
-    background-color: var(--color-brand-600);
+    background-color: var(--color-green-600);
 
     &:hover {
-      background-color: var(--color-brand-700);
+      background-color: var(--color-green-700);
     }
   `,
 
@@ -36,7 +36,7 @@ const variations = {
     border: var(--color-grey-200);
 
     &:hover {
-      background-color: var(--color-grey-50);
+      background-color: var(--color-grey-100);
     }
   `,
 
@@ -46,7 +46,7 @@ const variations = {
 
     &:hover {
       background-color: var(--color-red-600);
-      color: var(--color-white-200);
+      color: var(--color-grey-0);
     }
   `,
 
@@ -61,15 +61,15 @@ const variations = {
 
 const Button = styled.button`
   ${(props) =>
-    props.variations !== "closeTab" &&
+    props.$variations !== "closeTab" &&
     css`
       border: none;
       border-radius: var(--border-radius-sm);
       box-shadow: var(--shadow-sm);
     `}
 
-  ${(props) => sizes[props.size]}
-  ${(props) => variations[props.variations]}
+  ${(props) => sizes[props.$size]}
+  ${(props) => variations[props.$variations]}
 `;
 
 export default Button;

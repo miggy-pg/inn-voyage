@@ -17,37 +17,55 @@ export function TableHeader() {
           scope="col"
           className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
         >
-          Product Name
+          Start Date
         </th>
         <th
           scope="col"
           className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
         >
-          Technology
+          End Date
         </th>
         <th
           scope="col"
           className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
         >
-          Description
+          No. of Nights
         </th>
         <th
           scope="col"
           className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
         >
-          ID
+          No. of Guests
         </th>
         <th
           scope="col"
           className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
         >
-          Price
+          Cabin Price
         </th>
         <th
           scope="col"
           className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
         >
-          Discount
+          Extra Price
+        </th>
+        <th
+          scope="col"
+          className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
+        >
+          Total Price
+        </th>
+        <th
+          scope="col"
+          className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
+        >
+          Status
+        </th>
+        <th
+          scope="col"
+          className="md:text-md p-5 text-left text-xs font-medium uppercase text-gray-500 dark:text-gray-400 lg:text-2xl"
+        >
+          w/Breakfast
         </th>
         <th
           scope="col"

@@ -32,6 +32,15 @@ export function TableBody({ setExpandedUpdate, setExpandDelete }) {
       <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
         Discount
       </td>
+      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
+        Discount
+      </td>
+      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
+        Discount
+      </td>
+      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
+        Discount
+      </td>
 
       <td className="space-x-2 whitespace-nowrap p-8">
         <button

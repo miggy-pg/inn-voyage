@@ -8,13 +8,13 @@ import { CreateForm } from "../book/CreateForm";
 import { ValidateDelete } from "../book/ValidateDelete";
 
 export default function Form() {
-  const [expanded, setExpanded] = useState(false);
-  const [expandedUpdate, setExpandedUpdate] = useState(false);
+  const [expandCreate, setExpandCreate] = useState(false);
+  const [expandUpdate, setExpandUpdate] = useState(false);
   const [expandDelete, setExpandDelete] = useState(false);
 
   return (
     <>
-      <NavBar setExpanded={setExpanded}></NavBar>
+      <NavBar setExpandCreate={setExpandCreate}></NavBar>
       <div className="flex flex-col">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
@@ -23,7 +23,7 @@ export default function Form() {
                 <TableHeader></TableHeader>
                 <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
                   <TableBody
-                    setExpandedUpdate={setExpandedUpdate}
+                    setExpandedUpdate={setExpandUpdate}
                     setExpandDelete={setExpandDelete}
                   ></TableBody>
                 </tbody>
@@ -33,21 +33,22 @@ export default function Form() {
         </div>
       </div>
 
-      <Pagination></Pagination>
+      <Pagination />
 
       <UpdateForm
-        expanded={expanded}
-        expandedUpdate={expandedUpdate}
-        setExpandedUpdate={setExpandedUpdate}
+        expandUpdate={expandUpdate}
+        setExpandUpdate={setExpandUpdate}
       ></UpdateForm>
 
       <ValidateDelete
-        expanded={expanded}
         expandDelete={expandDelete}
         setExpandDelete={setExpandDelete}
       ></ValidateDelete>
 
-      <CreateForm expanded={expanded} setExpanded={setExpanded}></CreateForm>
+      <CreateForm
+        expandCreate={expandCreate}
+        setExpandCreate={setExpandCreate}
+      ></CreateForm>
     </>
   );
 }
