@@ -45,15 +45,28 @@ const variations = {
     background-color: var(--color-red-700);
 
     &:hover {
-      background-color: var(--color-red-800);
+      background-color: var(--color-red-600);
+      color: var(--color-white-200);
     }
+  `,
+
+  closeTab: css`
+    position: absolute;
+    right: 1rem;
+    top: 1rem;
+    border-radius: 0.5rem;
+    padding: 0;
   `,
 };
 
 const Button = styled.button`
-  border: none;
-  border-radius: var(--border-radius-sm);
-  box-shadow: var(--shadow-sm);
+  ${(props) =>
+    props.variations !== "closeTab" &&
+    css`
+      border: none;
+      border-radius: var(--border-radius-sm);
+      box-shadow: var(--shadow-sm);
+    `}
 
   ${(props) => sizes[props.size]}
   ${(props) => variations[props.variations]}
