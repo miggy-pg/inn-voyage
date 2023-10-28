@@ -1,11 +1,11 @@
+import { Row } from "./Row.1";
+
 export function TableBody({ setExpandedUpdate, setExpandDelete }) {
   return (
     <tr className="hover:bg-gray-100 dark:hover:bg-gray-700">
       <td className="w-4 p-8">
         <div className="flex items-center">
           <input
-            id="checkbox-{{ .id }}"
-            aria-describedby="checkbox-1"
             type="checkbox"
             className="focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 h-4 w-4 rounded border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"
           />
@@ -17,30 +17,7 @@ export function TableBody({ setExpandedUpdate, setExpandDelete }) {
           Name
         </div>
       </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        Technology
-      </td>
-      <td className="md:text-md max-w-sm overflow-hidden truncate p-8 text-base font-normal text-gray-500 dark:text-gray-400 sm:text-sm lg:text-2xl xl:max-w-xs">
-        Description
-      </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        #ID
-      </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        Price
-      </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        Discount
-      </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        Discount
-      </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        Discount
-      </td>
-      <td className="md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
-        Discount
-      </td>
+      <Row></Row>
 
       <td className="space-x-2 whitespace-nowrap p-8">
         <button
