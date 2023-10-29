@@ -30,6 +30,15 @@ const variations = {
     }
   `,
 
+  primaryBlue: css`
+    color: var(--color-brand-50);
+    background-color: var(--color-blue-600);
+
+    &:hover {
+      background-color: var(--color-blue-700);
+    }
+  `,
+
   secondary: css`
     color: var(--color-grey-600);
     background: var(--color-grey-0);
