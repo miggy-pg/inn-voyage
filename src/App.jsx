@@ -1,12 +1,12 @@
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./containers/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import CabinsPage from "./pages/CabinsPage";
-import AppLayout from "./components/AppLayout";
+import CabinsPage from "./containers/Cabins";
+import AppLayout from "./components/Common/AppLayout";
 import { Toaster } from "react-hot-toast";
-import BookPage from "./pages/BookPage";
+import BookPage from "./containers/Book";
 
 const queryClient = new QueryClient({
   defaultOptions: {

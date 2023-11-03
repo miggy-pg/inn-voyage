@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { NavBar } from "../book/NavBar";
-import { Pagination } from "../book/Pagination";
-import { TableHeader } from "../TableHeader";
-import { TableBody } from "../TableBody";
-import { UpdateForm } from "../book/UpdateForm";
-import { CreateForm } from "../book/CreateForm";
-import { ValidateDelete } from "../book/ValidateDelete";
+import { NavBar } from "../../components/Book/NavBar";
+import { Pagination } from "../../components/Book/Pagination";
+import { TableHeader } from "../../components/Common/TableHeader";
+import { TableBody } from "../../components/Common/TableBody";
+import { UpdateForm } from "../../components/Management/Booking/EditBooking";
+import { CreateForm } from "../../components/Management/Booking/AddBooking";
+import { ValidateDelete } from "../../components/Common/ValidateDelete";
 
-export default function Form() {
+export default function BookPage() {
   const [expandCreate, setExpandCreate] = useState(false);
   const [expandUpdate, setExpandUpdate] = useState(false);
   const [expandDelete, setExpandDelete] = useState(false);
@@ -38,17 +38,17 @@ export default function Form() {
       <UpdateForm
         expandUpdate={expandUpdate}
         setExpandUpdate={setExpandUpdate}
-      ></UpdateForm>
+      />
 
       <ValidateDelete
         expandDelete={expandDelete}
         setExpandDelete={setExpandDelete}
-      ></ValidateDelete>
+      />
 
       <CreateForm
         expandCreate={expandCreate}
         setExpandCreate={setExpandCreate}
-      ></CreateForm>
+      />
     </>
   );
 }

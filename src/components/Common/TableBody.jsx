@@ -1,5 +1,5 @@
 import Button from "./Button";
-import { Row } from "./Row.1";
+import { Row } from "./Row";
 
 export function TableBody({ setExpandedUpdate, setExpandDelete }) {
   return (

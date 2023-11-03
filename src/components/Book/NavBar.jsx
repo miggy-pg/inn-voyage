@@ -1,6 +1,7 @@
 import { FaHome, FaCaretRight } from "react-icons/fa";
-import Button from "../Button";
+import Button from "../Common/Button";
 import { Link } from "react-router-dom";
+import { UserSearch } from "../Common/UserSearch";
 
 export function NavBar(props) {
   return (
@@ -32,21 +33,7 @@ export function NavBar(props) {
           </h1>
         </div>
         <div className="mb-5 block items-center justify-between dark:divide-gray-700 sm:flex md:divide-x md:divide-gray-100">
-          <div className="mb-4 flex items-center sm:mb-0">
-            <form className="sm:pr-3">
-              <label htmlFor="book-search" className="sr-only">
-                Search
-              </label>
-              <div className="relative mt-1 w-48 sm:w-64 xl:w-[30rem]">
-                <input
-                  type="text"
-                  name="book-search"
-                  className="focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 ml-4 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 sm:text-sm lg:text-2xl"
-                  placeholder="Search for products"
-                />
-              </div>
-            </form>
-          </div>
+          <UserSearch />
 
           <Button
             onClick={() => props.setExpandCreate((curr) => !curr)}
@@ -55,12 +42,6 @@ export function NavBar(props) {
           >
             Add new product
           </Button>
-          {/* <button
-            className="text-red hover:bg-primary-800 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 rounded-lg bg-slate-200 px-5 py-2.5 font-medium focus:outline-none focus:ring-4 sm:text-sm lg:text-2xl"
-            type="button"
-          >
-            Add new product
-          </button> */}
         </div>
       </div>
     </div>

@@ -1,9 +1,9 @@
-import StyledPageContainer from "./Page";
+import StyledPageContainer from "../StyledPageContainer";
 import { StyledListItems, StyledNavLink } from "./ListItem";
-import StyledNavBar from "./NavBar";
-import StyledAside from "./SideBar";
+import StyledNavBar from "../NavBar";
+import StyledAside from "../SideBar";
 import { Outlet } from "react-router-dom";
-import StyledMain from "./Main";
+import StyledMain from "../Main";
 
 export default function AppLayout() {
   return (

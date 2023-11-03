@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import "../styles/global.css";
-import { getCabins, deleteCabin } from "../services/apiCabins";
+import "../../styles/global.css";
+import { getCabins, deleteCabin } from "../../services/apiCabins.js";
 import toast from "react-hot-toast";
 
 function Cabin({ id: cabinId, name, maxCapacity, regularPrice, discount }) {
@@ -18,29 +18,29 @@ function Cabin({ id: cabinId, name, maxCapacity, regularPrice, discount }) {
 
   return (
     <div className="flex flex-wrap gap-4 ">
-      <div className="flex sm:col-span-12 md:col-span-8 sm:w-full md:w-8/12 lg:w-full items-center">
-        <div className="text-start ps-4">
+      <div className="flex items-center sm:col-span-12 sm:w-full md:col-span-8 md:w-8/12 lg:w-full">
+        <div className="ps-4 text-start">
           {/* <h5 className="mb-3">Software Engineer</h5> */}
-          <span className="truncate me-3">
+          <span className="me-3 truncate">
             <i className="fa fa-map-marker-alt text-primary me-2"></i>
             {name}
           </span>
-          <span className="truncate me-3">
+          <span className="me-3 truncate">
             <i className="far fa-clock text-primary me-2"></i>
           </span>
-          <span className="truncate me-0">
+          <span className="me-0 truncate">
             <i className="far fa-money-bill-alt text-primary me-2"></i>
             {regularPrice}
           </span>
         </div>
-        <div className="sm:col-span-12 md:col-span-8 lg:col-span-12 sm:w-full md:w-4/12 lg:w-full flex flex-col items-start md:items-end justify-center">
-          <div className="flex mb-3">
+        <div className="flex flex-col items-start justify-center sm:col-span-12 sm:w-full md:col-span-8 md:w-4/12 md:items-end lg:col-span-12 lg:w-full">
+          <div className="mb-3 flex">
             <button onClick={() => mutate(cabinId)} disabled={isDeleting}>
               Delete
             </button>
             <button
               type="button"
-              className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-3xl px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900"
+              className="mb-2 mr-2 rounded-lg bg-yellow-400 px-5 py-2.5 text-3xl font-medium text-white hover:bg-yellow-500 focus:outline-none focus:ring-4 focus:ring-yellow-300 dark:focus:ring-yellow-900"
             >
               Book Cabin
             </button>
@@ -74,13 +74,13 @@ export default function Cabins() {
 
   if (isLoading) return <div>Loading...</div>;
   return (
-    <div className="w-4/5 py-5 mx-auto">
+    <div className="mx-auto w-4/5 py-5">
       <div className="container">
-        <h1 className="text-center mb-5 ">Cabins</h1>
-        <div className="tab-className text-center wow fadeInUp">
+        <h1 className="mb-5 text-center ">Cabins</h1>
+        <div className="tab-className wow fadeInUp text-center">
           <div className="">
             <div className="p-0">
-              <div className="border border-transparent rounded-lg shadow-md hover:shadow-lg transition duration-500 p-4 mb-4">
+              <div className="mb-4 rounded-lg border border-transparent p-4 shadow-md transition duration-500 hover:shadow-lg">
                 {!isLoading &&
                   cabins.map((cabin) => (
                     <Cabin

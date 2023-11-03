@@ -1,6 +1,6 @@
 import { FaExclamationCircle, FaWindowClose } from "react-icons/fa";
-import Button from "../Button";
-import StyledFormContainer from "../FormContainer";
+import Button from "./Button";
+import StyledFormContainer from "./FormContainer/FormContainer";
 
 export function ValidateDelete(props) {
   return (

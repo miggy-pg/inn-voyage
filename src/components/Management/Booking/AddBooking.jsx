@@ -1,6 +1,6 @@
 import { FaWindowClose } from "react-icons/fa";
-import Button from "../Button";
-import StyledFormContainer from "../FormContainer";
+import Button from "../../Common/Button";
+import StyledFormContainer from "../../Common/FormContainer/FormContainer";
 
 export function CreateForm(props) {
   return (
