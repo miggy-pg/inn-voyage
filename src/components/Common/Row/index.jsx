@@ -1,8 +1,8 @@
-export function Row({ children, type }) {
+export default function Row({ children, type }) {
   const rowType = {
     checkbox: "w-4 p-8",
     actionButton: "space-x-2 whitespace-nowrap p-8",
-    column:
+    default:
       "md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl",
   };
 

@@ -14,7 +14,7 @@ const StyledFormContainer = styled.div`
   transition: all 0.3s;
 
   ${(props) =>
-    props.$expandCreate || props.$expandUpdate || props.$expandDelete === true
+    props.$expandCreate || props.$expandEdit || props.$expandDelete === true
       ? css`
           width: 100%;
           transform: translateX(0);

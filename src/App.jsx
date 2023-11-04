@@ -6,7 +6,8 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import CabinsPage from "./containers/Cabins";
 import AppLayout from "./components/Common/AppLayout";
 import { Toaster } from "react-hot-toast";
-import BookPage from "./containers/Book";
+import BookingsPage from "./containers/Bookings";
+import CabninProvider from "./contexts/cabinProvider";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,8 +27,15 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="dashboard" element={<Dashboard />} />
-            <Route path="book" element={<BookPage />} />
-            <Route path="cabins" element={<CabinsPage />} />
+            <Route path="bookings" element={<BookingsPage />} />
+            <Route
+              path="cabins"
+              element={
+                <CabninProvider>
+                  <CabinsPage />
+                </CabninProvider>
+              }
+            />
           </Route>
         </Routes>
       </BrowserRouter>

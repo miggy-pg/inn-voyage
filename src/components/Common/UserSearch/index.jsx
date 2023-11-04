@@ -1,4 +1,4 @@
-export function UserSearch() {
+export default function UserSearch() {
   return (
     <div className="mb-4 flex items-center sm:mb-0">
       <form className="sm:pr-3">

@@ -1,15 +1,5 @@
-const headers = [
-  "Start Date",
-  "End Date",
-  "No. of Nights",
-  "No. of Guests",
-  "Cabin Price",
-  "Extra Price",
-  "Total Price",
-  "Status",
-  "w/Breakfast",
-  "Actions",
-];
+import { bookingHeaders } from "./constants";
+import { cabinHeaders } from "./constants";
 
 function TableColumn({ header }) {
   return (
@@ -22,7 +12,9 @@ function TableColumn({ header }) {
   );
 }
 
-export function TableHeader() {
+export default function TableHeader({ type }) {
+  const headers = type === "cabins" ? cabinHeaders : bookingHeaders;
+
   return (
     <thead className="bg-gray-100 dark:bg-gray-700">
       <tr>

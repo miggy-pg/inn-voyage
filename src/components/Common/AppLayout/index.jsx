@@ -1,7 +1,7 @@
-import StyledPageContainer from "../StyledPageContainer";
-import { StyledListItems, StyledNavLink } from "./ListItem";
-import StyledNavBar from "../NavBar";
-import StyledAside from "../SideBar";
+import StyledPageContainer from "./styles/StyledPageContainer";
+import { StyledListItems, StyledNavLink } from "./styles/StyledListItem";
+import StyledNavBar from "./styles/StyledNavBar";
+import StyledAside from "./styles/StyledAside";
 import { Outlet } from "react-router-dom";
 import StyledMain from "../Main";
 
@@ -16,7 +16,7 @@ export default function AppLayout() {
               <StyledNavLink to="/dashboard">Home</StyledNavLink>
             </StyledListItems>
             <StyledListItems>
-              <StyledNavLink to="/book">Book</StyledNavLink>
+              <StyledNavLink to="/bookings">Bookings</StyledNavLink>
             </StyledListItems>
             <StyledListItems>
               <StyledNavLink to="/cabins">Cabins</StyledNavLink>

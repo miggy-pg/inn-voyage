@@ -1,17 +1,21 @@
+import { useContext } from "react";
 import { FaWindowClose } from "react-icons/fa";
 import StyledFormContainer from "../../Common/FormContainer";
 import Button from "../../Common/Button";
+import { CabinContext } from "../../../contexts/cabinProvider.jsx";
 
-export default function EditBooking(props) {
+export default function EditCabin() {
+  const { expandEdit, setExpandEdit } = useContext(CabinContext);
+
   return (
-    <StyledFormContainer $expandEdit={props.expandEdit}>
+    <StyledFormContainer $expandEdit={expandEdit}>
       <h5 className="md:text-md mb-4 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 lg:text-2xl">
-        Update item
+        Edit item
       </h5>
       <Button
         $size="medium"
         $variations="closeTab"
-        onClick={() => props.setExpandEdit((curr) => !curr)}
+        onClick={() => setExpandEdit((curr) => !curr)}
       >
         <FaWindowClose className="h-8 w-8 fill-current text-slate-400 transition duration-300 ease-in-out hover:text-slate-500 " />
       </Button>
@@ -101,7 +105,7 @@ export default function EditBooking(props) {
             $size="large"
             $variations="secondary"
             className="ml-3"
-            onClick={() => props.setExpandEdit((curr) => !curr)}
+            onClick={() => setExpandEdit((curr) => !curr)}
           >
             Cancel
           </Button>
