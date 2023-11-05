@@ -1,18 +1,30 @@
 import { useContext } from "react";
 import "../../styles/global.css";
-import { CabinContext } from "../../contexts/cabinProvider.jsx";
+import { CabinContext } from "../../contexts/cabinProvider";
 import { NavBar } from "../../components/Common/NavBar";
 import { Pagination } from "../../components/Common/Pagination";
-import AddCabin from "../../components/Management/Cabins/AddCabin.jsx";
-import EditCabin from "../../components/Management/Cabins/EditCabin.jsx";
+import AddCabin from "../../components/Management/Cabins/AddCabin";
+import EditCabin from "../../components/Management/Cabins/EditCabin";
 import Delete from "../../components/Common/Delete";
 import UserSearch from "../../components/Common/UserSearch";
 import TableHeader from "../../components/Common/TableHeader";
-import CabinList from "../../components/Management/Cabins/CabinList.jsx";
+import CabinList from "../../components/Management/Cabins/CabinList";
 import Button from "../../components/Common/Button";
+import { useQuery } from "@tanstack/react-query";
+import { getCabins } from "../../services/apiCabins";
 
 export default function Cabins() {
-  const { cabins, isLoading, setExpandCreate } = useContext(CabinContext);
+  const { setExpandCreate } = useContext(CabinContext);
+
+  // queryFn(line 20) should return a promise
+  const {
+    isLoading,
+    data: cabins,
+    error,
+  } = useQuery({
+    queryKey: ["cabins"],
+    queryFn: getCabins,
+  });
 
   if (isLoading) return <div>Loading...</div>;
   return (
@@ -38,6 +50,7 @@ export default function Cabins() {
                     <CabinList
                       key={cabin.id}
                       id={cabin.id}
+                      image={cabin.image}
                       name={cabin.name}
                       maxCapacity={cabin.maxCapacity}
                       regularPrice={cabin.regularPrice}

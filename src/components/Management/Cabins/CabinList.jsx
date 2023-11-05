@@ -5,7 +5,8 @@ import Row from "../../Common/Row";
 
 export default function CabinList(props) {
   const { setExpandEdit, setExpandDelete } = useContext(CabinContext);
-  const { id, name, maxCapacity, regularPrice, discount, children } = props;
+  const { id, name, maxCapacity, regularPrice, discount, image, children } =
+    props;
 
   return (
     <>
@@ -22,6 +23,13 @@ export default function CabinList(props) {
             <div className="md:text-md text-lg font-semibold text-gray-900 dark:text-white sm:text-sm lg:text-2xl">
               {id}
             </div>
+          </Row>
+          <Row type="default">
+            <img
+              className="h-12 w-12 flex-shrink-0"
+              src={image}
+              alt="imac image"
+            />
           </Row>
           <Row type="default">{name}</Row>
           <Row type="default">{maxCapacity}</Row>

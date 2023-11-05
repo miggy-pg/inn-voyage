@@ -13,6 +13,7 @@ export const bookingHeaders = [
 
 export const cabinHeaders = [
   "",
+  "Image",
   "Cabin",
   "Capacity",
   "Price",

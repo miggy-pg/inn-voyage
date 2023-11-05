@@ -1,24 +1,14 @@
 import { createContext, useState } from "react";
 import toast from "react-hot-toast";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getCabins, deleteCabin } from "../services/apiCabins";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteCabin } from "../services/apiCabins";
 
 export const CabinContext = createContext();
 
-export default function CabninProvider({ children }) {
+export default function CabinProvider({ children }) {
   const [expandCreate, setExpandCreate] = useState(false);
   const [expandEdit, setExpandEdit] = useState(false);
   const [expandDelete, setExpandDelete] = useState(false);
-
-  // queryFn(line 20) should return a promise
-  const {
-    isLoading,
-    data: cabins,
-    error,
-  } = useQuery({
-    queryKey: ["cabins"],
-    queryFn: getCabins,
-  });
 
   const queryClient = useQueryClient();
 
@@ -32,13 +22,9 @@ export default function CabninProvider({ children }) {
     onError: (err) => toast.error(err.message), // the error message here is accessing the error message which is customizable
   }); // from the API deleteCabin function (line 17)
 
-  console.log("cabins", cabins);
-
   return (
     <CabinContext.Provider
       value={{
-        isLoading,
-        cabins,
         isDeleting,
         mutate,
         expandCreate,
