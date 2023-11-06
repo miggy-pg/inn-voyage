@@ -2,11 +2,12 @@ import { useContext } from "react";
 import { CabinContext } from "../../../contexts/cabinProvider.jsx";
 import Button from "../../Common/Button";
 import Row from "../../Common/Row";
+import EditCabin from "./EditCabin.jsx";
+import Delete from "../../Common/Delete/index.jsx";
 
 export default function CabinList(props) {
   const { setExpandEdit, setExpandDelete } = useContext(CabinContext);
-  const { id, name, maxCapacity, regularPrice, discount, image, children } =
-    props;
+  const { id, name, maxCapacity, regularPrice, discount, image } = props;
 
   return (
     <>
@@ -55,7 +56,8 @@ export default function CabinList(props) {
           </Row>
         </tr>
       </tbody>
-      {children}
+      <Delete cabinId={id} />
+      <EditCabin cabinToEdit={props} />
     </>
   );
 }

@@ -4,14 +4,60 @@ import StyledFormContainer from "../../Common/FormContainer";
 import Button from "../../Common/Button";
 import { CabinContext } from "../../../contexts/cabinProvider.jsx";
 import FormRow from "./FormRow.jsx";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createCabin } from "../../../services/apiCabins.js";
+import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
-export default function EditCabin() {
+export default function EditCabin({ cabinToEdit = {} }) {
+  console.log("cabinToEdit: ", cabinToEdit);
+  const { id: editId, ...editValues } = cabinToEdit;
+  console.log("editValues: ", editValues);
+  const isEditSession = Boolean(editId);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm({
+    defaultValues: isEditSession ? editValues : {},
+  });
   const { expandEdit, setExpandEdit } = useContext(CabinContext);
+
+  const queryClient = useQueryClient();
+
+  // - We're using React Query's `useMutation` hook to handle a data mutation.
+  // - `mutate` is a function that triggers the mutation.
+  // - `isLoading` is a flag that indicates whether the mutation is in progress.
+  const { mutate, isLoading: isCreating } = useMutation({
+    // `mutationFn` is the function responsible for creating a new cabin.
+
+    mutationFn: createCabin,
+    // `onSuccess` is called when the mutation succeeds.
+
+    onSuccess: () => {
+      toast.success("New cabin created successfully");
+
+      // Invalidate the "cabins"  query to refresh the data so that new data will appear in the list.
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+
+      // Reset the form to empty out the fields
+      reset();
+    },
+    // Show an error toast with the error message (the error message is custom in the createCabin from apiCabin.js).
+    onError: (err) => toast.error(err.message),
+  });
+
+  function onSubmit(data) {
+    mutate({ ...data, image: data.image[0] });
+  }
 
   return (
     <StyledFormContainer $expandEdit={expandEdit}>
       <h5 className="md:text-md mb-4 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 lg:text-2xl">
-        Edit item
+        Edit cabin
       </h5>
       <Button
         $size="medium"
@@ -20,7 +66,7 @@ export default function EditCabin() {
       >
         <FaWindowClose className="h-8 w-8 fill-current text-slate-400 transition duration-300 ease-in-out hover:text-slate-500 " />
       </Button>
-      <form onSubmit={handleSubmit(onSubmit, onError)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="space-y-4">
           <FormRow label="Name" error={errors?.name?.message}>
             <input
@@ -109,15 +155,16 @@ export default function EditCabin() {
           </FormRow>
 
           <div className="bottom-0 left-0 mt-4 flex w-full space-x-4 pb-6 sm:absolute sm:mt-0 sm:px-4">
-            {/* <Button $size="large" $variations="primary" */}
+            {/*  */}
             {/* disabled={isCreating}>  */}
-              Create
+            <Button $size="large" $variations="primary">
+              Update
             </Button>
             <Button
               $size="large"
               $variations="secondary"
               className="ml-3"
-              onClick={() => setExpandCreate((curr) => !curr)}
+              onClick={() => setExpandEdit((curr) => !curr)}
             >
               Cancel
             </Button>

@@ -11,14 +11,13 @@ import FormRow from "./FormRow";
 
 export default function AddCabin() {
   const { expandCreate, setExpandCreate } = useContext(CabinContext);
-
   const {
     register,
     handleSubmit,
     reset,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({});
 
   /**
    * @param {function} register - Connect input fields to form processing.

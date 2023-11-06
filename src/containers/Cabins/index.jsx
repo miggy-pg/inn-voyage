@@ -4,8 +4,6 @@ import { CabinContext } from "../../contexts/cabinProvider";
 import { NavBar } from "../../components/Common/NavBar";
 import { Pagination } from "../../components/Common/Pagination";
 import AddCabin from "../../components/Management/Cabins/AddCabin";
-import EditCabin from "../../components/Management/Cabins/EditCabin";
-import Delete from "../../components/Common/Delete";
 import UserSearch from "../../components/Common/UserSearch";
 import TableHeader from "../../components/Common/TableHeader";
 import CabinList from "../../components/Management/Cabins/CabinList";
@@ -55,9 +53,7 @@ export default function Cabins() {
                       maxCapacity={cabin.maxCapacity}
                       regularPrice={cabin.regularPrice}
                       discount={cabin.discount}
-                    >
-                      <Delete cabinId={cabin.id} />
-                    </CabinList>
+                    />
                   ))}
               </table>
             </div>
@@ -67,7 +63,6 @@ export default function Cabins() {
       <Pagination />
 
       <AddCabin />
-      <EditCabin />
     </>
   );
 }
