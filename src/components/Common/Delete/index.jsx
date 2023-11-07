@@ -5,7 +5,7 @@ import { CabinContext } from "../../../contexts/cabinProvider";
 import { useContext } from "react";
 
 export default function Delete({ cabinId }) {
-  const { expandDelete, setExpandDelete, mutate, isDeleting } =
+  const { expandDelete, setExpandDelete, deleteCabin, isDeleting } =
     useContext(CabinContext);
 
   return (
@@ -28,7 +28,7 @@ export default function Delete({ cabinId }) {
       <Button
         $size="medium"
         $variations="danger"
-        onClick={() => mutate(cabinId)}
+        onClick={() => deleteCabin(cabinId)}
         disabled={isDeleting}
       >
         Yes, I&apos;m sure

@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
 import toast from "react-hot-toast";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCabin } from "../services/apiCabins";
+import { deleteCabin as deleteCabinAPI } from "../services/apiCabins";
 
 export const CabinContext = createContext();
 
@@ -13,8 +13,8 @@ export default function CabinProvider({ children }) {
   const queryClient = useQueryClient();
 
   // we can immediately pass the API function from apiCabins.js to 'mutationFn'
-  const { isLoading: isDeleting, mutate } = useMutation({
-    mutationFn: deleteCabin,
+  const { isLoading: isDeleting, mutate: deleteCabin } = useMutation({
+    mutationFn: deleteCabinAPI,
     onSuccess: () => {
       toast.success("Successfully deleted cabin");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
@@ -26,7 +26,7 @@ export default function CabinProvider({ children }) {
     <CabinContext.Provider
       value={{
         isDeleting,
-        mutate,
+        deleteCabin,
         expandCreate,
         setExpandCreate,
         expandEdit,

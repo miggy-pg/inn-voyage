@@ -1,23 +1,15 @@
 import { FaWindowClose } from "react-icons/fa";
 import { useForm } from "react-hook-form";
-import { CabinContext } from "../../../contexts/cabinProvider";
-import Button from "../../Common/Button";
-import StyledFormContainer from "../../Common/FormContainer";
+import { CabinContext } from "../../../../contexts/cabinProvider";
+import Button from "../../../Common/Button";
+import StyledFormContainer from "../../../Common/FormContainer";
 import { useContext } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../../../services/apiCabins";
-import toast from "react-hot-toast";
-import FormRow from "./FormRow";
+import FormRow from "../../../Common/FormRow";
+
+import useCreateCabin from "./useCreateCabin";
 
 export default function AddCabin() {
   const { expandCreate, setExpandCreate } = useContext(CabinContext);
-  const {
-    register,
-    handleSubmit,
-    reset,
-    getValues,
-    formState: { errors },
-  } = useForm({});
 
   /**
    * @param {function} register - Connect input fields to form processing.
@@ -26,33 +18,26 @@ export default function AddCabin() {
    * @param {function} getValues - Access current form values.
    * @param {object} formState - Stores the current form state.
    */
+  const {
+    register,
+    handleSubmit,
+    reset,
+    getValues,
+    formState: { errors },
+  } = useForm({});
 
-  const queryClient = useQueryClient();
-
-  // - We're using React Query's `useMutation` hook to handle a data mutation.
-  // - `mutate` is a function that triggers the mutation.
-  // - `isLoading` is a flag that indicates whether the mutation is in progress.
-  const { mutate, isLoading: isCreating } = useMutation({
-    // `mutationFn` is the function responsible for creating a new cabin.
-
-    mutationFn: createCabin,
-    // `onSuccess` is called when the mutation succeeds.
-
-    onSuccess: () => {
-      toast.success("New cabin created successfully");
-
-      // Invalidate the "cabins"  query to refresh the data so that new data will appear in the list.
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-
-      // Reset the form to empty out the fields
-      reset();
-    },
-    // Show an error toast with the error message (the error message is custom in the createCabin from apiCabin.js).
-    onError: (err) => toast.error(err.message),
-  });
+  const { createCabin, isCreating } = useCreateCabin();
 
   function onSubmit(data) {
-    mutate({ ...data, image: data.image[0] });
+    createCabin(
+      { ...data, image: data.image[0] },
+      // since we cannot pass the reset fn in the useCreateCabin, we will instead input 'reset' function in
+      // inside useMutation fn in useCreateCabin file
+      // we can reset the form after successful submission,
+      {
+        onSuccess: () => reset(),
+      },
+    );
   }
 
   function onError(error) {

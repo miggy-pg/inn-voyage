@@ -3,26 +3,18 @@ import "../../styles/global.css";
 import { CabinContext } from "../../contexts/cabinProvider";
 import { NavBar } from "../../components/Common/NavBar";
 import { Pagination } from "../../components/Common/Pagination";
-import AddCabin from "../../components/Management/Cabins/AddCabin";
+
+import AddCabin from "../../components/Management/Cabins/CreateCabin";
 import UserSearch from "../../components/Common/UserSearch";
 import TableHeader from "../../components/Common/TableHeader";
 import CabinList from "../../components/Management/Cabins/CabinList";
 import Button from "../../components/Common/Button";
-import { useQuery } from "@tanstack/react-query";
-import { getCabins } from "../../services/apiCabins";
+import useCabins from "../../hooks/useCabins";
 
 export default function Cabins() {
   const { setExpandCreate } = useContext(CabinContext);
 
-  // queryFn(line 20) should return a promise
-  const {
-    isLoading,
-    data: cabins,
-    error,
-  } = useQuery({
-    queryKey: ["cabins"],
-    queryFn: getCabins,
-  });
+  const { isLoading, cabins, error } = useCabins();
 
   if (isLoading) return <div>Loading...</div>;
   return (
@@ -52,6 +44,7 @@ export default function Cabins() {
                       name={cabin.name}
                       maxCapacity={cabin.maxCapacity}
                       regularPrice={cabin.regularPrice}
+                      description={cabin.description}
                       discount={cabin.discount}
                     />
                   ))}

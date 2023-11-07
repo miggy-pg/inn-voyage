@@ -1,18 +1,14 @@
 import { useContext } from "react";
 import { FaWindowClose } from "react-icons/fa";
-import StyledFormContainer from "../../Common/FormContainer";
-import Button from "../../Common/Button";
-import { CabinContext } from "../../../contexts/cabinProvider.jsx";
-import FormRow from "./FormRow.jsx";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin } from "../../../services/apiCabins.js";
+import StyledFormContainer from "../../../Common/FormContainer/index.jsx";
+import Button from "../../../Common/Button/index.jsx";
+import { CabinContext } from "../../../../contexts/cabinProvider.jsx";
+import FormRow from "../../../Common/FormRow/index.jsx";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import useEditCabin from "./useEditCabin.js";
 
 export default function EditCabin({ cabinToEdit = {} }) {
-  console.log("cabinToEdit: ", cabinToEdit);
   const { id: editId, ...editValues } = cabinToEdit;
-  console.log("editValues: ", editValues);
   const isEditSession = Boolean(editId);
 
   const {
@@ -26,32 +22,10 @@ export default function EditCabin({ cabinToEdit = {} }) {
   });
   const { expandEdit, setExpandEdit } = useContext(CabinContext);
 
-  const queryClient = useQueryClient();
-
-  // - We're using React Query's `useMutation` hook to handle a data mutation.
-  // - `mutate` is a function that triggers the mutation.
-  // - `isLoading` is a flag that indicates whether the mutation is in progress.
-  const { mutate, isLoading: isCreating } = useMutation({
-    // `mutationFn` is the function responsible for creating a new cabin.
-
-    mutationFn: createCabin,
-    // `onSuccess` is called when the mutation succeeds.
-
-    onSuccess: () => {
-      toast.success("New cabin created successfully");
-
-      // Invalidate the "cabins"  query to refresh the data so that new data will appear in the list.
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-
-      // Reset the form to empty out the fields
-      reset();
-    },
-    // Show an error toast with the error message (the error message is custom in the createCabin from apiCabin.js).
-    onError: (err) => toast.error(err.message),
-  });
+  const { isEditing, editCabin } = useEditCabin();
 
   function onSubmit(data) {
-    mutate({ ...data, image: data.image[0] });
+    editCabin({ ...data, image: data.image[0] });
   }
 
   return (
@@ -72,7 +46,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="text"
               name="name"
-              // disabled={isCreating}
+              // disabled={isEditing}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="Type cabin name"
               {...register("name", { required: "Name is required" })}
@@ -83,7 +57,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="number"
               name="maxCapacity"
-              // disabled={isCreating}
+              // disabled={isEditing}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="Type maximum capacity"
               {...register("maxCapacity", {
@@ -102,7 +76,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="number"
               name="price"
-              // disabled={isCreating}
+              // disabled={isEditing}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="₱2999"
               {...register("regularPrice", {
@@ -116,7 +90,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="number"
               name="discount"
-              // disabled={isCreating}
+              // disabled={isEditing}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="10"
               {...register("discount", {
@@ -137,7 +111,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
           <FormRow label="Description" error={errors?.description?.message}>
             <textarea
               rows="4"
-              // disabled={isCreating}
+              // disabled={isEditing}
               className="md:text-md focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="Enter description here"
               {...register("description")}
@@ -156,7 +130,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
 
           <div className="bottom-0 left-0 mt-4 flex w-full space-x-4 pb-6 sm:absolute sm:mt-0 sm:px-4">
             {/*  */}
-            {/* disabled={isCreating}>  */}
+            {/* disabled={isEditing}>  */}
             <Button $size="large" $variations="primary">
               Update
             </Button>

@@ -10,7 +10,8 @@ export async function getCabins() {
 }
 
 export async function createCabin(newCabin) {
-  console.log("newCabin", newCabin);
+  const hasImagePath = newCabin.image?.startsWith?.(SUPABASE_URL);
+
   // Rename image name and remove forward slash to avoid creating/putting images folders
   const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
     "/",
@@ -36,6 +37,9 @@ export async function createCabin(newCabin) {
   }
 
   // 2. Upload image
+  // CASE - for cabin duplicate event: if curr cabin has an image uploaded, duplicate cabin should not upload image
+  if (hasImagePath) return data;
+
   const { error: storageError } = await supabase.storage
     .from("cabin-images")
     .upload(imageName, newCabin.image);

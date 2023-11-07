@@ -1,13 +1,30 @@
+import { FaCopy, FaPencilAlt, FaTrash } from "react-icons/fa";
 import { useContext } from "react";
-import { CabinContext } from "../../../contexts/cabinProvider.jsx";
-import Button from "../../Common/Button";
-import Row from "../../Common/Row";
-import EditCabin from "./EditCabin.jsx";
-import Delete from "../../Common/Delete/index.jsx";
+
+import Button from "../../../Common/Button/index.jsx";
+import Delete from "../../../Common/Delete/index.jsx";
+import EditCabin from "../EditCabin/index.jsx";
+import Row from "../../../Common/Row/index.jsx";
+import useCreateCabin from "../CreateCabin/useCreateCabin.js";
+
+import { CabinContext } from "../../../../contexts/cabinProvider.jsx";
 
 export default function CabinList(props) {
   const { setExpandEdit, setExpandDelete } = useContext(CabinContext);
-  const { id, name, maxCapacity, regularPrice, discount, image } = props;
+  const { id, name, maxCapacity, regularPrice, discount, image, description } =
+    props;
+  const { isCreating, createCabin } = useCreateCabin();
+
+  function handleDuplicate() {
+    createCabin({
+      name: `Copy of ${name}`,
+      maxCapacity,
+      regularPrice,
+      discount,
+      image,
+      description,
+    });
+  }
 
   return (
     <>
@@ -35,23 +52,35 @@ export default function CabinList(props) {
           <Row type="default">{name}</Row>
           <Row type="default">{maxCapacity}</Row>
           <Row type="default">{regularPrice}</Row>
+          {discount ? (
+            <Row type="default">{discount}</Row>
+          ) : (
+            <span>&mdash;</span>
+          )}
           <Row type="default">{discount}</Row>
-          <Row type="default">{discount}</Row>
+          {/* <Row type="default">{description}</Row> */}
 
           <Row type="actionButton">
             <Button
               $variations="primaryBlue"
               $size="medium"
+              // onClick={handleDuplicate()}
+            >
+              <FaCopy />
+            </Button>
+            <Button
+              $variations="primaryBlue"
+              $size="medium"
               onClick={() => setExpandEdit((curr) => !curr)}
             >
-              Update
+              <FaPencilAlt />
             </Button>
             <Button
               $variations="danger"
               $size="medium"
               onClick={() => setExpandDelete((curr) => !curr)}
             >
-              Delete
+              <FaTrash />
             </Button>
           </Row>
         </tr>
