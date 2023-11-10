@@ -1,24 +1,24 @@
 import { useContext } from "react";
-import "../../styles/global.css";
-import { CabinContext } from "../../contexts/cabinProvider";
+
 import { NavBar } from "../../components/Common/NavBar";
 import { Pagination } from "../../components/Common/Pagination";
-
-import AddCabin from "../../components/Management/Cabins/CreateCabin";
-import UserSearch from "../../components/Common/UserSearch";
-import TableHeader, { TableColumn } from "../../components/Common/TableHeader";
-import CabinList from "../../components/Management/Cabins/CabinList";
 import Button from "../../components/Common/Button";
-import useCabins from "../../hooks/useCabins";
+import UserSearch from "../../components/Common/UserSearch";
+import CreateCabin from "../../components/Management/Cabins/CreateCabin";
+import CabinList from "../../components/Management/Cabins/CabinList";
+
 import Table from "../../components/Common/Table";
-import {
-  bookingHeaders,
-  cabinHeaders,
-} from "../../components/Common/TableHeader/constants";
+
+import { CabinContext } from "../../contexts/cabinProvider";
+
+import useCabins from "../../hooks/useCabins";
+
+import { cabinHeaders } from "../../components/Common/TableHeader/constants";
+import "../../styles/global.css";
+import Modal from "../../components/Common/Modal";
 
 export default function Cabins() {
-  const { setExpandCreate } = useContext(CabinContext);
-  const headers = cabinHeaders;
+  // const { setExpandCreate } = useContext(CabinContext);
   const { isLoading, cabins, error } = useCabins();
 
   if (isLoading) return <div>Loading...</div>;
@@ -26,80 +26,47 @@ export default function Cabins() {
     <>
       <NavBar>
         <UserSearch />
-        <Button
-          onClick={() => setExpandCreate((curr) => !curr)}
-          $size="medium"
-          $variations="primary"
-        >
-          Add new cabin
-        </Button>
+
+        <Modal.Open opens="cabin-form">
+          <Button $size="medium" $variations="primary">
+            Add new cabin
+          </Button>
+        </Modal.Open>
       </NavBar>
       <div className="flex flex-col">
         <div className="overflow-x-auto">
           <div className="inline-block min-w-full align-middle">
             <div className="overflow-hidden shadow">
               <Table>
-                <Table.Header data={headers} />
-                <Table.Row />
+                <Table.Header
+                  data={cabinHeaders}
+                  render={(header) => (
+                    <Table.Column key={header} header={header} />
+                  )}
+                />
+                <Table.Body>
+                  {!isLoading &&
+                    cabins.map((cabin) => (
+                      <CabinList
+                        key={cabin.id}
+                        id={cabin.id}
+                        image={cabin.image}
+                        name={cabin.name}
+                        maxCapacity={cabin.maxCapacity}
+                        regularPrice={cabin.regularPrice}
+                        description={cabin.description}
+                        discount={cabin.discount}
+                      />
+                    ))}
+                </Table.Body>
               </Table>
             </div>
           </div>
         </div>
       </div>
-      <Pagination />
+      {/* <Pagination /> */}
 
-      <AddCabin />
+      <CreateCabin />
     </>
   );
 }
-
-{
-  /* <table className="min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-600">
-  <TableHeader type="cabins" />
-  {!isLoading &&
-    cabins.map((cabin) => (
-      <CabinList
-        key={cabin.id}
-        id={cabin.id}
-        image={cabin.image}
-        name={cabin.name}
-        maxCapacity={cabin.maxCapacity}
-        regularPrice={cabin.regularPrice}
-        description={cabin.description}
-        discount={cabin.discount}
-      />
-    ))}
-</table>; */
-}
-
-// return (
-//   <>
-//     <NavBar setExpandCreate={setExpandCreate}></NavBar>
-//     <div className="flex flex-col">
-//       <div className="overflow-x-auto">
-//         <div className="inline-block min-w-full align-middle">
-//           <div className="overflow-hidden shadow">
-//             <table className="min-w-full table-fixed divide-y divide-gray-200 dark:divide-gray-600">
-//               <TableHeader />
-//               <BookingList
-//                 setExpandedUpdate={setExpandEdit}
-//                 setExpandDelete={setExpandDelete}
-//               />
-//             </table>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-
-//     <Pagination />
-//     <EditBooking expandEdit={expandEdit} setExpandEdit={setExpandEdit} />
-//     <ValidateDelete
-//       expandDelete={expandDelete}
-//       setExpandDelete={setExpandDelete}
-//     />
-//     <AddBooking
-//       expandCreate={expandCreate}
-//       setExpandCreate={setExpandCreate}
-//     />
-//   </>
-// );

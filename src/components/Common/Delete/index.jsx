@@ -9,7 +9,7 @@ export default function Delete({ cabinId }) {
     useContext(CabinContext);
 
   return (
-    <StyledFormContainer $expandDelete={expandDelete}>
+    <StyledFormContainer $expandDelete={expandDelete} as="span">
       <h5 className="md:text-md inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 lg:text-2xl">
         Delete item
       </h5>

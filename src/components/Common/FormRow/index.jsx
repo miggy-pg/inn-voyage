@@ -1,6 +1,6 @@
 export default function FormRow({ label, error, children }) {
   return (
-    <div>
+    <>
       {label && (
         <label
           htmlFor={children.props.id}
@@ -11,6 +11,6 @@ export default function FormRow({ label, error, children }) {
       )}
       {children}
       <p className="text-xl text-red-500">{error}</p>
-    </div>
+    </>
   );
 }

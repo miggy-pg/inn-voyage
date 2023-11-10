@@ -1,52 +1,62 @@
-import { useContext } from "react";
-import { FaWindowClose } from "react-icons/fa";
-import StyledFormContainer from "../../../Common/FormContainer/index.jsx";
-import Button from "../../../Common/Button/index.jsx";
-import { CabinContext } from "../../../../contexts/cabinProvider.jsx";
-import FormRow from "../../../Common/FormRow/index.jsx";
 import { useForm } from "react-hook-form";
-import useEditCabin from "./useEditCabin.js";
+import Button from "../../../Common/Button";
+import FormRow from "../../../Common/FormRow";
+import useCreateCabin from "./useCreateCabin";
+import StyledFormContainer from "../../../Common/FormContainer";
+import { FaWindowClose } from "react-icons/fa";
 
-export default function EditCabin({ cabinToEdit = {} }) {
-  const { id: editId, ...editValues } = cabinToEdit;
-  const isEditSession = Boolean(editId);
+export function CreateCabinForm() {
+  // const { expandCreate, setExpandCreate } = useContext(CabinContext);
 
+  /**
+   * @param {function} register - Connect input fields to form processing.
+   * @param {function} handleSubmit - Handle form submissions, including validation and data sending.
+   * @param {function} reset - Clear form data.
+   * @param {function} getValues - Access current form values.
+   * @param {object} formState - Stores the current form state.
+   */
   const {
     register,
     handleSubmit,
     reset,
     getValues,
     formState: { errors },
-  } = useForm({
-    defaultValues: isEditSession ? editValues : {},
-  });
-  const { expandEdit, setExpandEdit } = useContext(CabinContext);
+  } = useForm({});
 
-  const { isEditing, editCabin } = useEditCabin();
+  const { createCabin, isCreating } = useCreateCabin();
 
   function onSubmit(data) {
-    editCabin({ ...data, image: data.image[0] });
+    createCabin(
+      { ...data, image: data.image[0] },
+      // since we cannot pass the reset fn in the useCreateCabin, we will instead put 'reset' function
+      // inside createCabin success fn
+      // we can reset the form after successful submission,
+      {
+        onSuccess: () => reset(),
+      },
+    );
   }
 
+  function onError(error) {
+    console.log("error: ", error);
+  }
   return (
-    <StyledFormContainer $expandEdit={expandEdit}>
-      <h5 className="md:text-md mb-4 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 lg:text-2xl">
-        Edit cabin
-      </h5>
+    <>
       <Button
         $size="medium"
         $variations="closeTab"
-        onClick={() => setExpandEdit((curr) => !curr)}
+        onClick={() => setExpandCreate((curr) => !curr)}
       >
         <FaWindowClose className="h-8 w-8 fill-current text-slate-400 transition duration-300 ease-in-out hover:text-slate-500 " />
       </Button>
-      <form onSubmit={handleSubmit(onSubmit)}>
+
+      <form onSubmit={handleSubmit(onSubmit, onError)}>
         <div className="space-y-4">
           <FormRow label="Name" error={errors?.name?.message}>
             <input
               type="text"
               name="name"
-              // disabled={isEditing}
+              disabled={isCreating}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="Type cabin name"
               {...register("name", { required: "Name is required" })}
@@ -57,7 +67,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="number"
               name="maxCapacity"
-              // disabled={isEditing}
+              disabled={isCreating}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="Type maximum capacity"
               {...register("maxCapacity", {
@@ -76,7 +86,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="number"
               name="price"
-              // disabled={isEditing}
+              disabled={isCreating}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="₱2999"
               {...register("regularPrice", {
@@ -90,7 +100,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
             <input
               type="number"
               name="discount"
-              // disabled={isEditing}
+              disabled={isCreating}
               className="md:text-md focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="10"
               {...register("discount", {
@@ -111,7 +121,7 @@ export default function EditCabin({ cabinToEdit = {} }) {
           <FormRow label="Description" error={errors?.description?.message}>
             <textarea
               rows="4"
-              // disabled={isEditing}
+              disabled={isCreating}
               className="md:text-md focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500 block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 lg:text-2xl"
               placeholder="Enter description here"
               {...register("description")}
@@ -128,23 +138,21 @@ export default function EditCabin({ cabinToEdit = {} }) {
             />
           </FormRow>
 
-          <span className="bottom-0 left-0 mt-4 flex w-full space-x-4 pb-6 sm:absolute sm:mt-0 sm:px-4">
-            {/*  */}
-            {/* disabled={isEditing}>  */}
-            <Button $size="large" $variations="primary">
-              Update
+          <div className="bottom-0 left-0 mt-4 flex w-full space-x-4 pb-6 sm:absolute sm:mt-0 sm:px-4">
+            <Button $size="large" $variations="primary" disabled={isCreating}>
+              Create
             </Button>
             <Button
               $size="large"
               $variations="secondary"
               className="ml-3"
-              onClick={() => setExpandEdit((curr) => !curr)}
+              // onClick={() => setExpandCreate((curr) => !curr)}
             >
               Cancel
             </Button>
-          </span>
+          </div>
         </div>
       </form>
-    </StyledFormContainer>
+    </>
   );
 }

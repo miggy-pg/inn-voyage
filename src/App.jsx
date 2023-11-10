@@ -9,6 +9,7 @@ import { Toaster } from "react-hot-toast";
 import BookingsPage from "./containers/Bookings";
 import CabninProvider from "./contexts/cabinProvider";
 import Settings from "./containers/Settings";
+import Modal from "./components/Common/Modal";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -33,9 +34,9 @@ function App() {
             <Route
               path="cabins"
               element={
-                <CabninProvider>
+                <Modal>
                   <CabinsPage />
-                </CabninProvider>
+                </Modal>
               }
             />
           </Route>
