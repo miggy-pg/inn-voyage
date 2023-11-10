@@ -1,7 +1,7 @@
 import { bookingHeaders } from "./constants";
 import { cabinHeaders } from "./constants";
 
-function TableColumn({ header }) {
+export function TableColumn({ header }) {
   return (
     <th
       scope="col"
