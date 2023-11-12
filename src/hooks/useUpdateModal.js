@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabin as useCreateCabinAPI } from "../../../../services/apiCabins";
 import toast from "react-hot-toast";
+import { createCabin } from "../services/apiCabins";
 
-export default function useCreateCabin() {
+export default function useEditCabin() {
   const queryClient = useQueryClient();
 
   // - We're using React Query's `useMutation` hook to handle a data mutation.
   // - `mutate` is a function that triggers the mutation.
   // - `isLoading` is a flag that indicates whether the mutation is in progress.
-  const { mutate: createCabin, isLoading: isCreating } = useMutation({
+  const { mutate: editCabin, isLoading: isEditing } = useMutation({
     // `mutationFn` is the function responsible for creating a new cabin.
 
-    mutationFn: useCreateCabinAPI,
+    mutationFn: createCabin,
     // `onSuccess` is called when the mutation succeeds.
 
     onSuccess: () => {
@@ -27,5 +27,5 @@ export default function useCreateCabin() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { isCreating, createCabin };
+  return { isEditing, editCabin };
 }

@@ -13,7 +13,7 @@ export async function createCabin(newCabin) {
   const hasImagePath = newCabin.image?.startsWith?.(SUPABASE_URL);
 
   // Rename image name and remove forward slash to avoid creating/putting images folders
-  const imageName = `${Math.random()}-${newCabin.image.name}`.replaceAll(
+  const imageName = `${Math.random()}-${newCabin.image?.name}`.replaceAll(
     "/",
     "",
   );

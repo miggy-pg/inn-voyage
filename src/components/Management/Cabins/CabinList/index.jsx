@@ -1,21 +1,28 @@
-import { useContext } from "react";
-
 import { FaCopy, FaPencilAlt, FaTrash } from "react-icons/fa";
 
 import Button from "../../../Common/Button";
 import Delete from "../../../Common/Delete";
-import EditCabin from "../EditCabin";
+import EditCabin from "../UpdateCabin";
 import Table from "../../../Common/Table";
 
-import useCreateCabin from "../CreateCabin/useCreateCabin.js";
-
-// import { CabinContext } from "../../../../contexts/cabinProvider.jsx";
+import useCreateModal from "../../../../hooks/useCreateModal";
+import Modal from "../../../Common/Modal";
+import CreateCabin from "../CreateCabin";
+import useDeleteModal from "../../../../hooks/useDeleteModal";
+import {
+  deleteCabin,
+  createCabin as useCreateCabinAPI,
+} from "../../../../services/apiCabins";
 
 export default function CabinList(props) {
-  // const { setExpandEdit, setExpandDelete } = useContext(CabinContext);
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     props;
-  const { isCreating, createCabin } = useCreateCabin();
+  console.log("propsCabinList: ", props);
+  const { isCreating, createCabin } = useCreateModal(
+    ["cabins"],
+    useCreateCabinAPI,
+  );
+  const { isDeleting, deleteItem } = useDeleteModal(["cabins"], deleteCabin);
 
   function handleDuplicate() {
     createCabin({
@@ -69,24 +76,26 @@ export default function CabinList(props) {
           >
             <FaCopy />
           </Button>
-          <Button
-            $variations="primaryBlue"
-            $size="medium"
-            // onClick={() => setExpandEdit((curr) => !curr)}
-          >
-            <FaPencilAlt />
-          </Button>
-          <Button
-            $variations="danger"
-            $size="medium"
-            // onClick={() => setExpandDelete((curr) => !curr)}
-          >
-            <FaTrash />
-          </Button>
+          <Modal.Open opens="edit-form">
+            <Button $variations="primaryBlue" $size="medium">
+              <FaPencilAlt />
+            </Button>
+          </Modal.Open>
+          <Modal.Open opens="delete-form">
+            <Button $variations="danger" $size="medium">
+              <FaTrash />
+            </Button>
+          </Modal.Open>
         </Table.Row>
       </tr>
-      {/* <Delete cabinId={id} /> */}
-      {/* <EditCabin cabinToEdit={props} /> */}
+
+      <Modal.Window name="delete-form">
+        <Delete itemId={id} deleteItem={deleteItem} isDeleting={isDeleting} />
+      </Modal.Window>
+
+      <Modal.Window name="edit-form">
+        <CreateCabin cabinToEdit={props} />
+      </Modal.Window>
     </>
   );
 }

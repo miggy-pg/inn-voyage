@@ -1,14 +1,13 @@
 import { GlobalStyles } from "./styles/GlobalStyles";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Dashboard from "./containers/Dashboard";
+import Dashboard from "./features/Dashboard";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import CabinsPage from "./containers/Cabins";
+import CabinsPage from "./features/Cabins";
 import AppLayout from "./components/Common/AppLayout";
 import { Toaster } from "react-hot-toast";
-import BookingsPage from "./containers/Bookings";
-import CabninProvider from "./contexts/cabinProvider";
-import Settings from "./containers/Settings";
+import BookingsPage from "./features/Bookings";
+import Settings from "./features/Settings";
 import Modal from "./components/Common/Modal";
 
 const queryClient = new QueryClient({

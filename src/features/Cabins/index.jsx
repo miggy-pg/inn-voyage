@@ -1,24 +1,19 @@
-import { useContext } from "react";
-
 import { NavBar } from "../../components/Common/NavBar";
 import { Pagination } from "../../components/Common/Pagination";
 import Button from "../../components/Common/Button";
 import UserSearch from "../../components/Common/UserSearch";
-import CreateCabin from "../../components/Management/Cabins/CreateCabin";
 import CabinList from "../../components/Management/Cabins/CabinList";
 
 import Table from "../../components/Common/Table";
 
-import { CabinContext } from "../../contexts/cabinProvider";
-
-import useCabins from "../../hooks/useCabins";
+import useCabins from "../../components/Management/Cabins/useCabins";
 
 import { cabinHeaders } from "../../components/Common/TableHeader/constants";
 import "../../styles/global.css";
 import Modal from "../../components/Common/Modal";
+import CreateCabin from "../../components/Management/Cabins/CreateCabin";
 
 export default function Cabins() {
-  // const { setExpandCreate } = useContext(CabinContext);
   const { isLoading, cabins, error } = useCabins();
 
   if (isLoading) return <div>Loading...</div>;
@@ -66,7 +61,9 @@ export default function Cabins() {
       </div>
       {/* <Pagination /> */}
 
-      <CreateCabin />
+      <Modal.Window name="cabin-form">
+        <CreateCabin />
+      </Modal.Window>
     </>
   );
 }

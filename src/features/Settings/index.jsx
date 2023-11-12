@@ -1,7 +1,7 @@
 import React from "react";
 import FormRow from "../../components/Common/FormRow";
 import useSettings from "./useSettings";
-import useUpdateSetting from "../../components/Management/Settings/useUpdateSetting";
+import useUpdateSetting from "../../hooks/useUpdateSetting";
 
 export default function Settings() {
   const {

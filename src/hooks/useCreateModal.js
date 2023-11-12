@@ -1,24 +1,23 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { createCabin } from "../../../../services/apiCabins";
 
-export default function useEditCabin() {
+export default function useCreateModal(queryKey, createAPI) {
   const queryClient = useQueryClient();
 
   // - We're using React Query's `useMutation` hook to handle a data mutation.
   // - `mutate` is a function that triggers the mutation.
   // - `isLoading` is a flag that indicates whether the mutation is in progress.
-  const { mutate: editCabin, isLoading: isEditing } = useMutation({
+  const { mutate: createItem, isLoading: isCreating } = useMutation({
     // `mutationFn` is the function responsible for creating a new cabin.
 
-    mutationFn: createCabin,
+    mutationFn: createAPI,
     // `onSuccess` is called when the mutation succeeds.
 
     onSuccess: () => {
       toast.success("New cabin created successfully");
 
       // Invalidate the "cabins"  query to refresh the data so that new data will appear in the list.
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      queryClient.invalidateQueries({ queryKey: queryKey });
 
       // // Reset the form to empty out the fields
       // reset();
@@ -27,5 +26,10 @@ export default function useEditCabin() {
     onError: (err) => toast.error(err.message),
   });
 
-  return { isEditing, editCabin };
+  return { isCreating, createItem };
 }
+
+useCreateModal.defaultProps = {
+  createAPI: () => {},
+  queryKey: ["cabins"],
+};

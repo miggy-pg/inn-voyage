@@ -1,23 +1,10 @@
 import { FaExclamationCircle, FaWindowClose } from "react-icons/fa";
 import Button from "../Button";
-import StyledFormContainer from "../FormContainer";
-import { CabinContext } from "../../../contexts/cabinProvider";
-import { useContext } from "react";
 
-export default function Delete({ cabinId }) {
-  const { expandDelete, setExpandDelete, deleteCabin, isDeleting } =
-    useContext(CabinContext);
-
+export default function Delete({ itemId, closeModal, deleteItem, isDeleting }) {
   return (
-    <StyledFormContainer $expandDelete={expandDelete} as="span">
-      <h5 className="md:text-md inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 lg:text-2xl">
-        Delete item
-      </h5>
-      <Button
-        $size="medium"
-        $variations="closeTab"
-        onClick={() => setExpandDelete((curr) => !curr)}
-      >
+    <>
+      <Button $size="medium" $variations="closeTab" onClick={closeModal}>
         <FaWindowClose className="h-8 w-8 fill-current text-slate-400 transition duration-300 ease-in-out hover:text-slate-500 " />
       </Button>
 
@@ -28,7 +15,7 @@ export default function Delete({ cabinId }) {
       <Button
         $size="medium"
         $variations="danger"
-        onClick={() => deleteCabin(cabinId)}
+        onClick={() => deleteItem(itemId)}
         disabled={isDeleting}
       >
         Yes, I&apos;m sure
@@ -37,10 +24,10 @@ export default function Delete({ cabinId }) {
         $size="medium"
         $variations="secondary"
         className="ml-3"
-        onClick={() => setExpandDelete((curr) => !curr)}
+        onClick={closeModal}
       >
         No, cancel
       </Button>
-    </StyledFormContainer>
+    </>
   );
 }
