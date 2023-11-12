@@ -24,13 +24,7 @@ export async function createCabin(newCabin) {
   const { data, error } = await supabase
     .from("cabins")
     .insert([{ ...newCabin, image: imagePath }]);
-  console.log(data);
-  console.log(
-    "await: ",
-    await supabase.storage
-      .from("cabin-images")
-      .upload(imageName, newCabin.image),
-  );
+
   if (error) {
     console.log(error);
     throw new Error("Cabin could not be created");

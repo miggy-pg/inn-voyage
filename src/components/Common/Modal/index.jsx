@@ -2,6 +2,7 @@ import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 
 import StyledFormContainer from "../FormContainer";
+import useOutsideClick from "../../../hooks/useOutsideClick";
 
 const ModalContext = createContext();
 
@@ -31,6 +32,8 @@ function Window({ children, name }) {
       ? "Delete cabin"
       : `${name === "cabin-form" ? "Add new cabin " : "Edit cabin"}`;
 
+  const ref = useOutsideClick(close);
+
   if (name !== openName) return null;
 
   /** createPortal (JSX, DOM) params:
@@ -38,12 +41,12 @@ function Window({ children, name }) {
    * @param DOM node where we want to render the JSX  */
 
   return createPortal(
-    <StyledFormContainer $expandCreate={openName}>
+    <StyledFormContainer $expandCreate={openName} ref={ref}>
       <h5 className="md:text-md mb-4 inline-flex items-center text-sm font-semibold uppercase text-gray-500 dark:text-gray-400 lg:text-2xl">
         {header}
       </h5>
 
-      {cloneElement(children, { closeModal: close })}
+      <div>{cloneElement(children, { closeModal: close })}</div>
     </StyledFormContainer>,
     document.body,
   );

@@ -17,15 +17,15 @@ import {
 export default function CabinList(props) {
   const { id, name, maxCapacity, regularPrice, discount, image, description } =
     props;
-  console.log("propsCabinList: ", props);
-  const { isCreating, createCabin } = useCreateModal(
+
+  const { isCreating, createItem } = useCreateModal(
     ["cabins"],
     useCreateCabinAPI,
   );
   const { isDeleting, deleteItem } = useDeleteModal(["cabins"], deleteCabin);
 
   function handleDuplicate() {
-    createCabin({
+    createItem({
       name: `Copy of ${name}`,
       maxCapacity,
       regularPrice,
@@ -65,8 +65,6 @@ export default function CabinList(props) {
         ) : (
           <span>&mdash;</span>
         )}
-        <Table.Row type="default">{discount}</Table.Row>
-        {/* <Table.Row type="default">{description}</Table.Row> */}
 
         <Table.Row type="actionButton">
           <Button

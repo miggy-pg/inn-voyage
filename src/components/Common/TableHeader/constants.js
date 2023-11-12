@@ -18,6 +18,5 @@ export const cabinHeaders = [
   "Capacity",
   "Price",
   "Discount",
-  "Description",
   "Actions",
 ];
