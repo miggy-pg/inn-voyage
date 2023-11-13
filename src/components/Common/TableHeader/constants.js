@@ -1,12 +1,9 @@
 export const bookingHeaders = [
-  "Start Date",
-  "End Date",
-  "No. of Nights",
-  "No. of Guests",
-  "Cabin Price",
-  "Extra Price",
-  "Total Price",
+  "Cabin",
+  "Guest",
+  "Dates",
   "Status",
+  "Amount",
   "w/Breakfast",
   "Actions",
 ];

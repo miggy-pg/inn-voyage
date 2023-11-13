@@ -1,6 +1,6 @@
 import { FaWindowClose } from "react-icons/fa";
-import StyledFormContainer from "../../Common/FormContainer";
-import Button from "../../Common/Button";
+import StyledFormContainer from "../../../Common/FormContainer";
+import Button from "../../../Common/Button";
 
 export default function EditBooking(props) {
   return (
