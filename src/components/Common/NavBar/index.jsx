@@ -1,8 +1,40 @@
+import { useState } from "react";
 import BreadCrumb from "../BreadCrumb";
+import { Menu, Transition } from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/20/solid";
+import { Fragment } from "react";
 
-const STATUS = ["Completed", "Cancelled", "In progress", "In review"];
+const STATUSES = ["Completed", "Cancelled", "In progress", "In review"];
+
+function classNames(...classes) {
+  return classes.filter(Boolean).join(" ");
+}
+
+function NavBarDropdown({ status }) {
+  return (
+    <Menu.Item>
+      {({ active }) => (
+        <label
+          href="#"
+          className={classNames(
+            active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+            "block cursor-pointer px-4 py-2 text-xl",
+          )}
+        >
+          {status}
+        </label>
+      )}
+    </Menu.Item>
+  );
+}
 
 export function NavBar({ children }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  function handleToggleOpen() {
+    setIsOpen((open) => !open);
+  }
+
   return (
     <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
       <div className="items-center justify-between lg:flex">
@@ -10,105 +42,44 @@ export function NavBar({ children }) {
           <BreadCrumb />
         </div>
         <div className="items-center sm:flex">
-          <div className="flex items-center">
-            <button
-              className="mb-4 mr-4 inline-flex items-center rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700 sm:mb-0"
-              type="button"
-            >
-              Filter by status
-              <svg
-                className="ml-2 h-4 w-4"
-                aria-hidden="true"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+          <Menu as="div" className="relative inline-block text-left">
+            <div>
+              <Menu.Button
+                className="inline-flex w-full justify-center gap-x-1.5 rounded-md bg-white px-3 py-2 text-xl font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                aria-expanded="true"
+                aria-haspopup="true"
+                type="button"
+                onClick={handleToggleOpen}
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M19 9l-7 7-7-7"
-                ></path>
-              </svg>
-            </button>
-
-            <div className="z-10 hidden w-56 rounded-lg bg-white p-3 shadow dark:bg-gray-700">
-              <h6 className="mb-3 text-sm font-medium text-gray-900 dark:text-white">
-                Category
-              </h6>
-              <ul
-                className="space-y-2 text-sm"
-                aria-labelledby="dropdownDefault"
-              >
-                <li className="flex items-center">
-                  <input
-                    id="apple"
-                    type="checkbox"
-                    value=""
-                    className="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 rounded border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700"
-                  />
-
-                  <label
-                    htmlFor="apple"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >
-                    Completed (56)
-                  </label>
-                </li>
-
-                <li className="flex items-center">
-                  <input
-                    id="fitbit"
-                    type="checkbox"
-                    value=""
-                    checked
-                    className="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 rounded border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700"
-                  />
-
-                  <label
-                    htmlFor="fitbit"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >
-                    Cancelled (56)
-                  </label>
-                </li>
-
-                <li className="flex items-center">
-                  <input
-                    id="dell"
-                    type="checkbox"
-                    value=""
-                    className="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 rounded border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700"
-                  />
-
-                  <label
-                    htmlFor="dell"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >
-                    In progress (56)
-                  </label>
-                </li>
-
-                <li className="flex items-center">
-                  <input
-                    id="asus"
-                    type="checkbox"
-                    value=""
-                    checked
-                    className="text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 h-4 w-4 rounded border-gray-300 bg-gray-100 focus:ring-2 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700"
-                  />
-
-                  <label
-                    htmlFor="asus"
-                    className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                  >
-                    In review (97)
-                  </label>
-                </li>
-              </ul>
+                Filter by status
+                <ChevronDownIcon
+                  className="-mr-1 h-5 w-5 text-gray-400"
+                  aria-hidden="true"
+                />
+              </Menu.Button>
             </div>
-          </div>
+
+            <Transition
+              as={Fragment}
+              enter="transition ease-out duration-100"
+              enterFrom="transform opacity-0 scale-95"
+              enterTo="transform opacity-100 scale-100"
+              leave="transition ease-in duration-75"
+              leaveFrom="transform opacity-100 scale-100"
+              leaveTo="transform opacity-0 scale-95"
+            >
+              <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <ul
+                  className="px-3 text-xl text-gray-700 dark:text-gray-200"
+                  aria-labelledby="dropdownDefault"
+                >
+                  {STATUSES.map((status) => (
+                    <NavBarDropdown key={status} status={status} />
+                  ))}
+                </ul>
+              </Menu.Items>
+            </Transition>
+          </Menu>
           <div className="flex items-center space-x-4">
             <div className="relative">
               <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -164,3 +135,16 @@ export function NavBar({ children }) {
     </div>
   );
 }
+
+// <li className="flex items-center py-1">
+//   <input
+//     type="checkbox"
+//     value=""
+//     className="dark:hover:text-whitefocus:ring-primary-500 dark:focus:ring-primary-600 block h-4 w-4 rounded border-gray-300 bg-gray-100 px-4 py-2 text-red-600 hover:bg-gray-100 hover:bg-gray-100 focus:ring-2 dark:border-gray-500 dark:bg-gray-600 dark:ring-offset-gray-700 dark:hover:bg-gray-600"
+//   />
+
+//   <label
+//     htmlFor={status}
+//     className="ml-2 text-2xl font-medium text-gray-900 dark:text-gray-100"
+//   ></label>
+// </li>;

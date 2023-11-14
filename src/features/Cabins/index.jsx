@@ -86,6 +86,7 @@ export default function Cabins() {
                   )}
                 />
                 <Table.Body>
+                  <h1>Test</h1>
                   {/* <div className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
                     <div className="items-center justify-between lg:flex">
                       <div className="mb-4 lg:mb-0">
