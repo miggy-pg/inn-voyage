@@ -61,7 +61,7 @@ export default function CabinList(props) {
         <Table.Row type="default">{maxCapacity}</Table.Row>
         <Table.Row type="default">{regularPrice}</Table.Row>
         {discount ? (
-          <Table.Row type="default">{discount}</Table.Row>
+          <Table.Row type="status">{discount}</Table.Row>
         ) : (
           <span>&mdash;</span>
         )}
