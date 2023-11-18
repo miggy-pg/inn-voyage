@@ -16,7 +16,6 @@ import Delete from "../../components/Common/Delete";
 import Filter from "../../components/Common/Filter";
 import SortBy from "../../components/Common/SortBy";
 import { useSearchParams } from "react-router-dom";
-import Spinner from "../../components/Common/Spinner";
 
 export default function Cabins() {
   const { isLoading, cabins, error } = useCabins();
@@ -43,7 +42,7 @@ export default function Cabins() {
     !isLoading &&
     filteredCabins.sort((a, b) => (a[field] - b[field]) * modifier);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading) return <div>Loading...</div>;
 
   return (
     <>
@@ -114,7 +113,7 @@ export default function Cabins() {
       </Modal.Window>
 
       <Modal.Window name="delete-form">
-        {/* <Delete /> */}
+        <Delete />
         {/* <Delete itemId={id} deleteItem={deleteItem} isDeleting={isDeleting} /> */}
       </Modal.Window>
 
