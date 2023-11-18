@@ -63,7 +63,7 @@ export default function CabinList(props) {
         {discount ? (
           <Table.Row type="status">{discount}</Table.Row>
         ) : (
-          <span>&mdash;</span>
+          <Table.Row type="default">&mdash;</Table.Row>
         )}
 
         <Table.Row type="actionButton">

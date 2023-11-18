@@ -16,7 +16,7 @@ function Column({ header }) {
   return (
     <th
       scope="col"
-      className="p-4 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-white"
+      className="p-4 text-left text-xl font-medium uppercase tracking-wider text-gray-500 dark:text-white"
     >
       {header}
     </th>
@@ -26,11 +26,9 @@ function Column({ header }) {
 function Header({ data, render }) {
   return (
     <thead className="bg-gray-100 dark:bg-gray-700">
-      <th scope="col" className="p-4">
+      <th scope="col" className="w-4 p-12">
         <div className="flex items-center">
           <input
-            id="checkbox-all"
-            aria-describedby="checkbox-1"
             type="checkbox"
             className="focus:ring-3 focus:ring-primary-300 dark:focus:ring-primary-600 h-4 w-4 rounded border-gray-300 bg-gray-50 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800"
           />
@@ -51,7 +49,7 @@ function Row({ children, type }) {
     status:
       "mr-2 rounded-md border border-green-100 bg-green-100 px-2.5 py-0.5 text-2xl font-medium text-green-800 dark:border-green-500 dark:bg-gray-700 dark:text-green-400",
     default:
-      "md:text-md whitespace-nowrap p-8 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl",
+      "md:text-md whitespace-nowrap p-4 text-base font-medium text-gray-900 dark:text-white sm:text-sm lg:text-2xl",
   };
 
   if (type === "name")
